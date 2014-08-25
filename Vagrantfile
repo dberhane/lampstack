@@ -25,6 +25,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
    config.vm.network "private_network", ip: "192.168.33.10"
+   config.vm.hostname = "www.myvbox.local"
+
+if defined? VagrantPlugins::HostsUpdater
+    config.hostsupdater.aliases = [
+      "phpmyadmin.vbox.local",
+      "drupal.vbox.local",
+      "bmjcom.vbox.local",
+    ]
+end
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -80,6 +89,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.provision "puppet" do |puppet|
      puppet.manifests_path = "manifests"
      puppet.manifest_file  = "default.pp"
+     puppet.module_path = "modules"
    end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
