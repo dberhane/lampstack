@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+  config.vm.box = "ubuntu"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -31,7 +31,7 @@ if defined? VagrantPlugins::HostsUpdater
     config.hostsupdater.aliases = [
       "phpmyadmin.vbox.local",
       "drupal.vbox.local",
-      "bmjcom.vbox.local",
+      "drupaltest.vbox.local",
     ]
 end
 
