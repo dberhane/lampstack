@@ -1,10 +1,25 @@
 <VirtualHost *:80>
   ServerName drupal.vbox.local
-  DocumentRoot /vagrant/webroot
-  <Directory /vagrant/webroot>
+  DocumentRoot "/vagrant/webroot"
+  <Directory "/vagrant/webroot">
     DirectoryIndex index.php index.html
     AllowOverride All
     Order allow,deny
     Allow from all
   </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+  ServerAdmin webmaster@bmj.com
+  ServerName drupaltest.vbox.local
+  DocumentRoot /opt/sites/drupal
+  ErrorLog /var/log/apache2/drupaltest-error_log
+  CustomLog /var/log/apache2/drupaltest-access_log common
+
+  <Directory "/opt/sites/drupal">
+    Allow from all
+    Options +Includes +Indexes +FollowSymLinks
+    AllowOverride all
+  </Directory>
+
 </VirtualHost>
