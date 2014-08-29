@@ -42,7 +42,9 @@ end
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
-  # config.ssh.forward_agent = true
+
+  config.ssh.private_key_path = [ '~/.ssh/insecure_private_key', '~/.ssh/id_rsa' ]
+  config.ssh.forward_agent = true
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -86,6 +88,13 @@ end
   # You will need to create the manifests directory and a manifest in
   # the file default.pp in the manifests_path directory.
   #
+
+  # add github to the list of known_hosts
+  # config.vm.provision :shell do |shell|
+  # shell.inline = "mkdir $1 && touch $2 && ssh-keyscan -H $3 >> $2 && chmod 600 $2"
+  # shell.args = %q{/root/.ssh /root/.ssh/known_hosts "github.com"}
+  # end
+
    config.vm.provision "puppet" do |puppet|
      puppet.manifests_path = "manifests"
      puppet.manifest_file  = "default.pp"
