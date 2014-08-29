@@ -6,6 +6,6 @@ do
     ip=$(dig +short $h)
     ssh-keygen -R $h
     ssh-keygen -R $ip
-    ssh-keyscan -H $ip >> /root/.ssh/known_hosts
-    ssh-keyscan -H $h >> /root/.ssh/known_hosts
+    ssh-keyscan -H $ip >> /home/vagrant/.ssh/known_hosts
+    ssh-keyscan -H $h >> /home/vagrant/.ssh/known_hosts
  done
