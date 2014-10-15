@@ -31,6 +31,7 @@ if defined? VagrantPlugins::HostsUpdater
     config.hostsupdater.aliases = [
       "phpmyadmin.vbox.local",
       "drupal.vbox.local",
+      "local.www.bmj.com",
       "drupaltest.vbox.local",
     ]
 end
