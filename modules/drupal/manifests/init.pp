@@ -21,6 +21,8 @@ class drupal {
 # Include Drupal index.php
 file{ '/opt/sites/hw/index.php' :
   ensure => present,
+  owner  => "vagrant",
+  group  => "vagrant",
   source => 'puppet:///modules/drupal/index.php',
 }
 
