@@ -1,23 +1,23 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
  
-class known_hosts( $username = 'vagrant' ) {
+class known_hosts( $username = 'root' ) {
     $group = $username
     $server_list = [ 'github.com' ]
  
-    file{ '/home/vagrant/.ssh' :
+    file{ '/root/.ssh' :
       ensure => directory,
       group => $group,
       owner => $username,
       mode => 0600,
     }
  
-    file{ '/home/vagrant/.ssh/known_hosts' :
+    file{ '/root/.ssh/known_hosts' :
       ensure => file,
       group => $group,
       owner => $username,
       mode => 0600,
-      require => File[ '/home/vagrant/.ssh' ],
+      require => File[ '/root/.ssh' ],
     }
  
     file{ '/tmp/known_hosts.sh' :
@@ -29,7 +29,7 @@ class known_hosts( $username = 'vagrant' ) {
      command => "/tmp/known_hosts.sh",
      path => "/sbin:/usr/bin:/usr/local/bin/:/bin/",
      provider => shell,
-     user => 'vagrant',
-     require => File[ '/home/vagrant/.ssh/known_hosts', '/tmp/known_hosts.sh' ]
+     user => 'root',
+     require => File[ '/root/.ssh/known_hosts', '/tmp/known_hosts.sh' ]
     }
 }

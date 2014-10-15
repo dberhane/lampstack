@@ -46,96 +46,26 @@ end
   config.ssh.private_key_path = [ '~/.ssh/insecure_private_key', '~/.ssh/id_rsa' ]
   config.ssh.forward_agent = true
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+# ssh forwarding for vagrant does not work on windows and temporary fix, please enter you Github deploy key
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Don't boot with headless mode
-  #   vb.gui = true
-  #
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
-
-  # Enable provisioning with CFEngine. CFEngine Community packages are
-  # automatically installed. For example, configure the host as a
-  # policy server and optionally a policy file to run:
-  #
-  # config.vm.provision "cfengine" do |cf|
-  #   cf.am_policy_hub = true
-  #   # cf.run_file = "motd.cf"
-  # end
-  #
-  # You can also configure and bootstrap a client to an existing
-  # policy server:
-  #
-  # config.vm.provision "cfengine" do |cf|
-  #   cf.policy_server_address = "10.0.2.15"
-  # end
-
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file default.pp in the manifests_path directory.
-  #
-
-  # add github to the list of known_hosts
-  # config.vm.provision :shell do |shell|
-  # shell.inline = "mkdir $1 && touch $2 && ssh-keyscan -H $3 >> $2 && chmod 600 $2"
-  # shell.args = %q{/root/.ssh /root/.ssh/known_hosts "github.com"}
-  # end
+if Vagrant::Util::Platform.windows?
+    # You MUST have a ~/.ssh/id_rsa (GitHub specific) SSH key to copy to VM
+    if File.exists?(File.join(Dir.home, ".ssh", "id_rsa"))
+       # Read local machine's GitHub SSH Key (~/.ssh/id_rsa)
+        github_ssh_key = File.read(File.join(Dir.home, ".ssh", "bmj_rsa"))
+        # Copy it to VM as the /root/.ssh/id_rsa key
+        config.vm.provision :shell, :inline => "echo 'Windows-specific: Copying local GitHub SSH Key to VM for provisioning...' && mkdir -p /root/.ssh && echo '#{github_ssh_key}' > /root/.ssh/id_rsa && chmod 600 /root/.ssh/id_rsa"
+    else
+        # Else, throw a Vagrant Error. Cannot successfully startup on Windows without a GitHub SSH Key!
+        raise Vagrant::Errors::VagrantError, "\n\nERROR: GitHub SSH Key not found at ~/.ssh/id_rsa (required on Windows).\nYou can generate this key manually OR by #installing GitHub for Windows (http://windows.github.com/)\n\n"
+    end
+end
 
    config.vm.provision "puppet" do |puppet|
      puppet.manifests_path = "manifests"
      puppet.manifest_file  = "default.pp"
      puppet.module_path = "modules"
+     puppet.options = "--verbose --debug"
    end
 
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding
-  # some recipes and/or roles.
-  #
-  # config.vm.provision "chef_solo" do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { mysql_password: "foo" }
-  # end
-
-  # Enable provisioning with chef server, specifying the chef server URL,
-  # and the path to the validation key (relative to this Vagrantfile).
-  #
-  # The Opscode Platform uses HTTPS. Substitute your organization for
-  # ORGNAME in the URL and validation key.
-  #
-  # If you have your own Chef Server, use the appropriate URL, which may be
-  # HTTP instead of HTTPS depending on your configuration. Also change the
-  # validation key to validation.pem.
-  #
-  # config.vm.provision "chef_client" do |chef|
-  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-  #   chef.validation_key_path = "ORGNAME-validator.pem"
-  # end
-  #
-  # If you're using the Opscode platform, your validator client is
-  # ORGNAME-validator, replacing ORGNAME with your organization name.
-  #
-  # If you have your own Chef Server, the default validation client name is
-  # chef-validator, unless you changed the configuration.
-  #
-  #   chef.validation_client_name = "ORGNAME-validator"
 end
