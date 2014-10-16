@@ -63,36 +63,64 @@ file { "/opt/sites/hw/files":
 # BMJ and HW modules, themes symlinks syntax
 file { '/opt/sites/hw/drupal-webroot/sites/default/scripts':
    ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",
    target => '/opt/sites/hw/drupal-site-jnl-bmj/scripts',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-site-jnl-bmj"]],   
 }
 
 file { '/opt/sites/hw/drupal-webroot/sites/default/files':
    ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",    
    target => '/opt/sites/hw/files',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], File["/opt/sites/hw/files"]],
 }
 
 file { '/opt/sites/hw/drupal-webroot/sites/default/libraries':
    ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",
    target => '/opt/sites/hw/drupal-site-jnl-bmj/libraries',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-site-jnl-bmj"]],
 }
 
 file { '/opt/sites/hw/drupal-webroot/sites/default/modules':
    ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",
    target => '/opt/sites/hw/drupal-site-jnl-bmj/modules',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-site-jnl-bmj"]],   
 }
 
 file { '/opt/sites/hw/drupal-webroot/sites/default/themes':
    ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",
    target => '/opt/sites/hw/drupal-site-jnl-bmj/themes',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-site-jnl-bmj"]],   
 }
 
+file { '/opt/sites/hw/drupal-webroot/sites/all/modules/highwire':
+   ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",
+   target => '/opt/sites/hw/drupal-highwire/modules',
+   require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-highwire"]],   
+}
+
+file { '/opt/sites/hw/drupal-webroot/sites/all/themes/highwire':
+   ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",
+   target => '/opt/sites/hw/drupal-highwire/themes',
+   require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-highwire"]],   
+}
+
 file { '/opt/sites/hw/drupal-webroot/sites/default/settings.php':
    ensure => 'link',
+   owner  => "vagrant",
+   group  => "vagrant",
    target => '/opt/sites/hw/settings.php',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], file["/opt/sites/hw/settings.php"]],
 }
@@ -109,16 +137,16 @@ exec { "create-drupal-db":
 #     require => [File["/opt/sites/drupal"], Class["drupal::drush"], Exec["create-drupal-db"]],
 #   }
 
-# vcsrepo { "/opt/sites/hw/drupal-highwire":
-#   ensure   => latest,
-#   owner => vagrant,
-#   user => root,
-#   group => vagrant,
-#   provider => git,
-#   require =>  [Package['git'], File['/opt/sites/hw']],
-#   source => "git@github.com:highwire/drupal-highwire.git",
-#   revision => '7.x-1.x-stable',
-# }
+vcsrepo { "/opt/sites/hw/drupal-highwire":
+  ensure   => latest,
+  owner => vagrant,
+  user => root,
+  group => vagrant,
+  provider => git,
+  require =>  [Package['git'], File['/opt/sites/hw']],
+  source => "git@github.com:highwire/drupal-highwire.git",
+  revision => '7.x-1.x-stable',
+}
 
 vcsrepo { "/opt/sites/hw/drupal-webroot":
   ensure   => latest,

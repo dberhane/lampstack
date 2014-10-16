@@ -9,7 +9,7 @@ $databases = array (
   array (
     'default' =>
     array (
-      'database' => 'drupal_test',
+      'database' => 'drupal',
       'username' => 'root',
       'password' => 'root',
       'host' => 'localhost',
