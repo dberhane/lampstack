@@ -5,6 +5,7 @@ class tools {
     "curl",
     "vim",
     "htop",
+    "memcached",
     "zip"
   ]
 

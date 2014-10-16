@@ -9,6 +9,7 @@ class php {
     "php5-dev",
     "php5-gd",
     "php5-mcrypt",
+    "php5-memcache",
     "libapache2-mod-php5",
   ]
 
