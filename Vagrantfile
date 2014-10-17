@@ -32,9 +32,15 @@ if defined? VagrantPlugins::HostsUpdater
       "phpmyadmin.vbox.local",
       "drupal.vbox.local",
       "local.www.bmj.com",
+      "www.myvbox.local",
       "drupaltest.vbox.local",
     ]
 end
+
+  # Share folder between host and guest
+
+  config.vm.synced_folder "sites/", "/opt/sites",
+    owner: "vagrant", group: "vagrant"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on

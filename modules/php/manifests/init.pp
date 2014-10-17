@@ -17,4 +17,21 @@ class php {
     ensure => present,
     require => Exec["apt-get update"]
   }
+
+# override and increase memory limit
+file {'/etc/php5/conf.d/memory_limit.ini':
+  ensure => present,
+  owner => root, group => root, mode => 444,
+  content => "memory_limit =  2046M",
+  require =>  [Package['apache2']],
+}
+
+# override and increase maximum upload size
+file {'/etc/php5/conf.d/upload_limits.ini':
+  ensure => present,
+  owner => root, group => root, mode => 444,
+  content => "post_max_size = 10M \nupload_max_filesize = 10M \n",
+  require =>  [Package['apache2']],
+}
+
 }
