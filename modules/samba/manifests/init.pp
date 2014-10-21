@@ -3,7 +3,7 @@ class samba {
   # package install list
   $packages = [
     "samba",
-  #  "samba-common",
+    "samba-common",
   ]
 
   package { $packages:
@@ -22,6 +22,14 @@ class samba {
     ensure => running,
     require => [Package["samba"]],
     enable => true,
+    restart => 'service smbd restart',
+  }
+
+  service { "nmbd":
+    ensure => running,
+    require => [Package["samba"]],
+    enable => true,
+    restart => 'service nmbd restart',
   }
 
 }
