@@ -12,9 +12,9 @@ class samba {
   }
 
 
-  file{ '/etc/samba/smb.con' :
+  file{ '/etc/samba/smb.conf' :
     ensure => present,
-    source => 'puppet:///modules/samba/samba.sh',
+    source => 'puppet:///modules/samba/samba.conf',
     require =>  [Package['samba']],
   }
 
