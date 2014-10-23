@@ -81,7 +81,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/default/libraries':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '/opt/sites/hw/drupal-site-jnl-bmj/libraries',
+   target => '../../../drupal-site-jnl-bmj/libraries',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-site-jnl-bmj"]],
 }
 
@@ -89,7 +89,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/default/modules':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '/opt/sites/hw/drupal-site-jnl-bmj/modules',
+   target => '../../../drupal-site-jnl-bmj/modules',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-site-jnl-bmj"]],   
 }
 
@@ -97,7 +97,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/default/themes':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '/opt/sites/hw/drupal-site-jnl-bmj/themes',
+   target => '../../../drupal-site-jnl-bmj/themes',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-site-jnl-bmj"]],   
 }
 
@@ -105,7 +105,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/all/modules/highwire':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '/opt/sites/hw/drupal-highwire/modules',
+   target => '../../../drupal-highwire/modules',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-highwire"]],   
 }
 
@@ -113,7 +113,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/all/themes/highwire':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '/opt/sites/hw/drupal-highwire/themes',
+   target => '../../../drupal-highwire/themes',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-highwire"]],   
 }
 
@@ -121,7 +121,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/default/settings.php':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '/opt/sites/hw/settings.php',
+   target => '../../../settings.php',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], file["/opt/sites/hw/settings.php"]],
 }
 

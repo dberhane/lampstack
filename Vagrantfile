@@ -41,8 +41,8 @@ end
 
   # Share folder between host and guest
 
-  # config.vm.synced_folder "sites/", "/opt/sites",
-  #   owner: "vagrant", group: "vagrant"
+  config.vm.synced_folder "sites/", "/opt/sites", type: "rsync", rsync_exclude: ".git/",
+    owner: "vagrant", group: "vagrant"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
