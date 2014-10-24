@@ -105,7 +105,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/all/modules/highwire':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '../../../drupal-highwire/modules',
+   target => '../../../../drupal-highwire/modules',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-highwire"]],   
 }
 
@@ -113,7 +113,7 @@ file { '/opt/sites/hw/drupal-webroot/sites/all/themes/highwire':
    ensure => 'link',
    owner  => "vagrant",
    group  => "vagrant",
-   target => '../../../drupal-highwire/themes',
+   target => '../../../../drupal-highwire/themes',
    require => [vcsrepo["/opt/sites/hw/drupal-webroot"], vcsrepo["/opt/sites/hw/drupal-highwire"]],   
 }
 

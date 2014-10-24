@@ -32,4 +32,4 @@ include php::pecl
 include mysql
 include drupal::drush
 include drupal
-include samba
+#include samba
