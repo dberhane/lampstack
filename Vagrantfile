@@ -41,7 +41,7 @@ end
 
   # Share folder between host and guest
 
-  config.vm.synced_folder "sites/", "/opt/sites", type: "rsync", rsync_exclude: ".git/",
+  config.vm.synced_folder "sites/", "/opt/sites", type: "rsync",
     owner: "vagrant", group: "vagrant"
 
   # Create a public network, which generally matched to bridged network.
