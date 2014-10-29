@@ -41,8 +41,15 @@ end
 
   # Share folder between host and guest
 
-  config.vm.synced_folder "sites/", "/opt/sites", type: "rsync",
-    owner: "vagrant", group: "vagrant"
+  #config.vm.synced_folder "sites/", "/opt/sites", type: "rsync",
+  #config.vm.synced_folder "sites/", "/opt/sites", type: "smb",
+  #  owner: "vagrant", group: "vagrant"
+
+
+config.vm.provider "virtualbox" do |v|
+  v.memory = 4096
+  v.cpus = 2
+end
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
